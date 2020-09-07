@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6"> 
+        <form action="" method="POST">{% csrf_token %}
+
+            {{ form.as_p }}
+            
+            <input type="submit" class="btn btn-secondary" value="{% if btn %}{{ btn }}{% else %}Submit{% endif %}">
+        </form>
+    </div>
+</div>
+{% endblock %}

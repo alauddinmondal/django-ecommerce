@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-4">
+            {% for img in image %}
+                {% if img.featured %}
+            <div class="col-md-12">
+                    <img src="{{ MEDIA_URL }}{{ img.image.url }}" class="img-responsive" style="height: 150px;width: 100%;"/>
+            </div>
+                {% endif %}
+            {% endfor %}
+                
+                {% for img in image %}
+                    {% if not img.featured %}
+                        <div class="col-md-12">                            
+                                <img src="{{ MEDIA_URL }}{{ img.image.url }}" class="img-responsive" style="height: 150px;width: 100%;"/>
+                           
+                        </div>
+                    {% endif %}
+                {% endfor %}  
+        </div>
+        <div class="col-sm-8">
+
+            <div class="row">
+                <div class="col-md-8 text-center">
+                    <span class="float-md-left"><h1>{{product.title}}</h1></span>
+                </div>
+
+                <div class="col-md-4 text-center">
+                    
+
+                        <form class="form-inline" method="POST" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Add to cart" class="btn btn-primary btn-sm" style="width:100%;">
+                            <input type="number" name="qty" value="1" class="form-control" style="width:100%;">
+        
+                            {% if product.variation_set.all %}
+
+                            {% if product.variation_set.sizes %}
+                            <select class="form-control" name="size" style="width:100%;">
+                                {% for item in product.variation_set.sizes %}
+                                    <option value="{{ item.title|lower }}">{{ item.title|capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                            {% endif %}
+
+                            {% if product.variation_set.colors %}
+                            <select class="form-control" name="color" style="width:100%;">
+                                {% for item in product.variation_set.colors %}
+                                    <option value="{{ item.title|lower }}">{{ item.title|capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                            {% endif %}
+
+                            {% endif %}
+                        </form>
+                </div>
+                       
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    
+         &nbsp;
+                </div>
+                <div class="col-md-8 text-center">
+                    
+         
+                </div>
+
+            </div>
+<hr>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <span class="float-md-left"><strong>Price:</strong> {{ product.price }}</span><br>
+                    <span class="float-md-left">Shipping free with $25+ purchase</span>
+                </div>
+                
+            </div>
+
+            <hr>
+         
+            {{ product.description|linebreaks }}
+        </div>
+        
+    </div>
+    
+</div>
+
+{% endblock %}

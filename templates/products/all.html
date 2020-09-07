@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %} Products {% endblock %} 
+
+
+{% block productlist %}   
+  <div class="row">
+      {% for product in products %}
+
+      
+
+      <div class="col-sm-12 col-md-3">
+
+
+        <div class="card">
+       
+      {% if product.productimage_set.all %}  
+        {% for item in product.productimage_set.all %}
+          {% if item.featured %}
+            <a href="{{ product.get_absolute_url }}"><div style="width: 100%;height: 200px;margin: 0 auto; 
+            background-image: url('{{ MEDIA_URL }}{{ item.image.url }}'); background-repeat: no-repeat;background-size: cover;">
+              
+            </div></a>
+          {% else %}
+          
+          <a href="{{ product.get_absolute_url }}"><img src="{% static 'img/blank-thumbnail.jpg' %}" class="img-responsive" style="width:100%;height: 150px;"/></a>
+            
+          {% endif %}
+        {% endfor %}
+      {% endif %} 
+
+
+          <div class="card-body">
+            <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.title }} </a> </h5>
+            <p class="card-text">{{ product.description|truncatewords:10 }}</p>
+            <p><strong>Price: {{ product.price }}</strong></p>
+            <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Product</a>
+          </div>
+        </div>
+        <br>
+
+        
+
+         
+          
+           
+
+        </div>
+
+        {% cycle "" "" "" "" "" "" "" "</div><br><br><div class='row'><div class='col-sm-4'></div>" %}
+
+      {% endfor %}
+  </div>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+

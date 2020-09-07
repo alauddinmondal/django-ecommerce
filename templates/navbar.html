@@ -1,0 +1,40 @@
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="{% url 'home' %}">WEBAM Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <form class="form-inline mt-2 mt-md-0" action="/s/">
+        <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search products" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      
+      <ul class="navbar-nav alaposright">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'products' %}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'view_cart' %}"> Cart <span class="badge badge-light"> {{ request.session.items_total }}</span></a>
+        </li>
+
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Account</span></a>
+        </li>
+    
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'auth_logout' %}">Logout</span></a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'auth_login' %}">Login</span></a>
+        </li>
+
+        {% endif %}
+        
+      </ul>
+    
+    </div>
+  </nav>
